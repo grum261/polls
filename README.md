@@ -11,10 +11,11 @@ git clone https://github.com/grum261/polls
 
 ### 1.2 Запуск сервера разработки
 ```shell
+cd polls
 pipenv sync
 cd src
 # sudo chmod +x manage.py
-# or use python manage.py command instead of ./manage.py
+# or use `python manage.py makemigrations` instead of ./manage.py
 ./manage.py makemigrations
 ./manage.py migrate
 ./manage.py runserver # 127.0.0.1:8000 by default
