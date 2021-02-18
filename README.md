@@ -31,7 +31,7 @@ cd src
 * POST запрос:
   ```shell
   curl -X POST -H "Content-Type: application/json" \
-    -d '{"name": "username", "email": "user@example.com"}' \
+    -d '{"name": "username", "email": "user@example.com", "password": "password"}' \
     http://127.0.0.1:8000/api/login/
   ```
 * Ответ:
