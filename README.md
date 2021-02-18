@@ -32,7 +32,7 @@ cd src
   ```shell
   curl -X POST -H "Content-Type: application/json" \
     -d '{"name": "username", "email": "user@example.com"}' \
-    http://127.0.0.1/api/login/
+    http://127.0.0.1:8000/api/login/
   ```
 * Ответ:
   ```json
@@ -46,7 +46,7 @@ cd src
 * POST:
   ```shell
   curl -X POST -H "Content-Type: application/json" \
-      -H "Authorization: tokenfromloginpage" \
+      -H "Authorization: Token tokenfromloginpage" \
       -d '{"title": "asdsaada", "description": "dsadsada", "is_active": true}' \
       http://127.0.0.1/api/polls/
   ```
@@ -67,7 +67,7 @@ cd src
 * GET запрос:
   ```shell
   curl -i -H "Accept: application/json" \
-      -H "Authorization: tokenfromloginpage" \
+      -H "Authorization: Token tokenfromloginpage" \
       -H "Content-Type: application/json" \
       -X GET http://127.0.0.1/api/polls/
   ```
@@ -152,7 +152,7 @@ cd src
 * PUT запрос:
   ```shell
   curl -X PUT -H "Content-Type: application/json" \
-      -H "Authorization: tokenfromloginpage" \
+      -H "Authorization: Token tokenfromloginpage" \
       -d '{"title": "string", "description": "dsadsada", "is_active": true}' \
       http://127.0.0.1/api/polls/1/
   ```
@@ -172,7 +172,7 @@ cd src
 * URL: http://127.0.0.1/api/polls/{poll_id}/
 * DELETE запрос:
   ```shell
-  curl -X -H "Authorization: tokenfromloginpage" DELETE http://127.0.0.1/api/polls/1/
+  curl -X -H "Authorization: Token tokenfromloginpage" DELETE http://127.0.0.1/api/polls/1/
   ```
 * Ответ:
   ```shell
@@ -186,7 +186,7 @@ cd src
   ```shell
   curl -i -H "Accept: application/json" \
       -H "Content-Type: application/json" \
-      -H "Authorization: tokenfromloginpage" \
+      -H "Authorization: Token tokenfromloginpage" \
       -X GET http://127.0.0.1/api/questions/
   ```
 * Ответ:
@@ -206,7 +206,7 @@ cd src
 * POST запрос:
   ```shell
   curl -X POST -H "Content-Type: application/json" \
-      -H "Authorization: tokenfromloginpage" \
+      -H "Authorization: Token tokenfromloginpage" \
       -d '{"title": "Текст делового вопросика", "type": "text", "poll": 1}' \
       http://127.0.0.1/api/questions/
   ```
@@ -225,7 +225,7 @@ cd src
 * PUT запрос:
   ```shell
   curl -X PUT -H "Content-Type: application/json" \
-      -H "Authorization: tokenfromloginpage" \
+      -H "Authorization: Token tokenfromloginpage" \
       -d '{"title": "Другой текст делового вопросика", "type": "multiple", "poll": "Название опроса"}' \
       http://127.0.0.1/api/questions/1/
   ```
@@ -243,7 +243,7 @@ cd src
 * URL: http://127.0.0.1/api/questions/{question_id}/
 * DELETE запрос:
   ```shell
-  curl -X -H "Authorization: tokenfromloginpage" DELETE http://127.0.0.1/api/questions/1/
+  curl -X -H "Authorization: Token tokenfromloginpage" DELETE http://127.0.0.1/api/questions/1/
   ```
 * Ответ:
   ```shell
@@ -256,7 +256,7 @@ cd src
 * POST запрос:
   ```shell
   curl -X POST -H "Content-Type: application/json" \
-      -H "Authorization: tokenfromloginpage" \
+      -H "Authorization: Token tokenfromloginpage" \
       -d '{"text": "Текст варианта ответа на деловой вопросик", "question": "Название вопросика"}' \
       http://127.0.0.1/api/choices/
   ```
@@ -274,7 +274,7 @@ cd src
 * GET запрос:
   ```shell
   curl -i -H "Accept: application/json" \
-      -H "Authorization: tokenfromloginpage" \
+      -H "Authorization: Token tokenfromloginpage" \
       -H "Content-Type: application/json" \
       -X GET http://127.0.0.1/api/choices/
   ```
@@ -294,7 +294,7 @@ cd src
 * PUT запрос:
   ```shell
   curl -X PUT -H "Content-Type: application/json" \
-      -H "Authorization: tokenfromloginpage" \
+      -H "Authorization: Token tokenfromloginpage" \
       -d '{"text": "Другой текст варианта ответа", "question": "Название вопросика"}' \
       http://127.0.0.1/api/choices/1/
   ```
@@ -311,7 +311,7 @@ cd src
 * URL: http://127.0.0.1/api/choices/{choice_id}/
 * DELETE запрос:
   ```shell
-  curl -X -H "Authorization: tokenfromloginpage" DELETE http://127.0.0.1/api/choices/1/
+  curl -X -H "Authorization: Token tokenfromloginpage" DELETE http://127.0.0.1/api/choices/1/
   ```
 * Ответ:
   ```shell
@@ -324,7 +324,7 @@ cd src
 * GET запрос:
   ```shell
   curl -i -H "Accept: application/json" \
-      -H "Authorization: tokenfromloginpage" \
+      -H "Authorization: Token tokenfromloginpage" \
       -H "Content-Type: application/json" \
       -X GET http://127.0.0.1/api/answers/
   ```
@@ -344,7 +344,7 @@ cd src
 * POST запрос:
   ```shell
   curl -X POST -H "Content-Type: application/json" \
-      -H "Authorization: tokenfromloginpage" \
+      -H "Authorization: Token tokenfromloginpage" \
       -d '{"text_vote": "Текст варианта ответа на деловой вопросик", "question": "Название вопросика"}' \
       http://127.0.0.1/api/answers/
   ```
@@ -365,7 +365,7 @@ cd src
 * GET запрос:
   ```shell
   curl -i -H "Accept: application/json" \
-      -H "Authorization: tokenfromloginpage" \
+      -H "Authorization: Token tokenfromloginpage" \
       -H "Content-Type: application/json" \
       -X GET http://127.0.0.1/api/answers/
   ```
@@ -388,7 +388,7 @@ cd src
 * PUT запрос:
   ```shell
   curl -X PUT -H "Content-Type: application/json" \
-      -H "Authorization: tokenfromloginpage" \
+      -H "Authorization: Token tokenfromloginpage" \
       -d '{"text_vote": "Какой-то ответ на деловой вопросик", "question": "Название вопросика"}' \
       http://127.0.0.1/api/answers/1/
   ```
@@ -407,7 +407,7 @@ cd src
 * URL: http://127.0.0.1/api/answers/{answer_id}/
 * DELETE запрос:
   ```shell
-  curl -X -H "Authorization: tokenfromloginpage" DELETE http://127.0.0.1/api/answers/1/
+  curl -X -H "Authorization: Token tokenfromloginpage" DELETE http://127.0.0.1/api/answers/1/
   ```
 * Ответ:
   ```shell

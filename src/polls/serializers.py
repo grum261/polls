@@ -3,45 +3,9 @@ from rest_framework import serializers
 from .models import Poll, Question, Answer, Choice
 
 
-class PollSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Poll
-        fields = '__all__'
-
-    def create(self, validated_data):
-        return Poll.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        for key, value in validated_data.items():
-            setattr(instance, key, value)
-        instance.save()
-
-        return instance
-
-
-class QuestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Question
-        fields = '__all__'
-
-    def validate(self, attrs):
-        question_type = attrs['type']
-        if question_type == 'one' or question_type == 'multiple' or question_type == 'text':
-            return attrs
-        raise serializers.ValidationError('Question type can be only one, multiple, text')
-
-    def create(self, validated_data):
-        return Question.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        for key, value in validated_data.items():
-            setattr(instance, key, value)
-        instance.save()
-
-        return instance
-
-
 class ChoiceSerializer(serializers.ModelSerializer):
+    question = serializers.SlugRelatedField(queryset=Question.objects.all(), slug_field='text')
+
     class Meta:
         model = Choice
         fields = '__all__'
@@ -65,7 +29,37 @@ class ChoiceSerializer(serializers.ModelSerializer):
         return instance
 
 
+class QuestionSerializer(serializers.ModelSerializer):
+    poll = serializers.SlugRelatedField(queryset=Poll.objects.all(), slug_field='title')
+    choices = ChoiceSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+    def validate(self, attrs):
+        question_type = attrs['type']
+        if question_type == 'one' or question_type == 'multiple' or question_type == 'text':
+            return attrs
+        raise serializers.ValidationError('Question type can be only one, multiple, text')
+
+    def create(self, validated_data):
+        return Question.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+        instance.save()
+
+        return instance
+
+
 class AnswerSerializer(serializers.ModelSerializer):
+    user = serializers.SlugRelatedField(read_only=True, slug_field='username')
+    choice = serializers.SlugRelatedField(queryset=Choice.objects.all(), slug_field='text')
+    poll = serializers.SlugRelatedField(queryset=Poll.objects.all(), slug_field='title')
+    question = serializers.SlugRelatedField(queryset=Question.objects.all(), slug_field='text')
+
     class Meta:
         model = Answer
         fields = ('text_vote', 'question', 'poll', 'user', 'choice', )
@@ -85,6 +79,24 @@ class AnswerSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Answer.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+        instance.save()
+
+        return instance
+
+
+class PollSerializer(serializers.ModelSerializer):
+    questions = QuestionSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Poll
+        fields = '__all__'
+
+    def create(self, validated_data):
+        return Poll.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         for key, value in validated_data.items():
